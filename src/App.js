@@ -35,7 +35,7 @@ function App() {
             <Route path='/' >
               <Route index element={<Tasks />} />
               <Route path="signup" element={<Signup />} />
-              <Route path="login" element={!user ? <Login /> : <ListCampus />} />
+              <Route path="login" element={!auth ? <Login /> : <ListCampus />} />
               <Route path="campus">
                 <Route index element={<AuthProvider><ListCampus /></AuthProvider>} />
                 <Route path="list" element={<AuthProvider><ListCampus /></AuthProvider>} />
