@@ -8,6 +8,8 @@ import axios from 'axios'
 
 
 const AddCampus = () => {
+  const url = process.env.REACT_APP_PUBLIC_URL
+
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
@@ -20,7 +22,7 @@ const AddCampus = () => {
 
     }),
     onSubmit: (values) => {
-      axios.post("http://localhost:5300/api/campus/add", values).then(
+      axios.post(`${url}/campus/add`, values).then(
         res => alert("Sucessfully Added")
       ).then(
         () => {

@@ -9,10 +9,11 @@ import { useDispatch } from 'react-redux'
 import { login } from '../../features/Reducer'
 
 const Login = () => {
+  const url = process.env.REACT_APP_PUBLI_URL
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  
   const [loading, setLoading] = useState(false)
+
   useEffect(() => {
 
   }, [loading])
@@ -27,7 +28,7 @@ const Login = () => {
       password: Yup.string().required("Required").min(8, "Min 8 Character").trim("No spaces allowed"),
     }),
     onSubmit: (values) => {
-      axios.post("http://localhost:5300/api/users/login", values).then(res => {
+      axios.post(`${url}/users/login`, values).then(res => {
         // alert(JSON.stringify(res.data))
         localStorage.setItem("userData", JSON.stringify(res.data))
         dispatch(login({

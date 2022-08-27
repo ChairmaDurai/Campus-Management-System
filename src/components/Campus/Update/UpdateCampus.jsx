@@ -11,6 +11,7 @@ import * as Yup from "yup"
 
 
 export default function UpdateCampus({ open, handleClose, data, id }) {
+    const url = process.env.REACT_APP_PUBLI_URL
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -24,7 +25,7 @@ export default function UpdateCampus({ open, handleClose, data, id }) {
         }),
 
         onSubmit: values => {
-            axios.put(`http://localhost:5300/api/campus/update/${id}`, values).then(res => {
+            axios.put(`${url}/campus/update/${id}`, values).then(res => {
                 alert(JSON.stringify(res.data))
 
 

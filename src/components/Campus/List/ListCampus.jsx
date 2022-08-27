@@ -21,6 +21,7 @@ const ListCampus = () => {
   const [id, setId] = React.useState("");
   const user = useSelector(selectUser)
   const navigate = useNavigate()
+  const url = process.env.REACT_APP_PUBLI_URL
 
 
 
@@ -81,7 +82,7 @@ const ListCampus = () => {
                     const check = window.confirm("Yes to Delete and No to cancel")
                     console.log(check);
                     if (check === true) {
-                      axios.delete(`http://localhost:5300/api/campus/delete/${row._id}`).then(res => {
+                      axios.delete(`${url}/campus/delete/${row._id}`).then(res => {
                         alert(res.data)
                         setLoading(!loading)
                       }).catch(err => alert(err))

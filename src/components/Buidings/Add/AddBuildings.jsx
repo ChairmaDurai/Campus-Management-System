@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const AddBuildings = () => {
-
+  const url = process.env.REACT_APP_PUBLI_URL
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
@@ -20,7 +20,7 @@ const AddBuildings = () => {
 
     }),
     onSubmit: async (values) => {
-     await axios.post(`http://localhost:5300/api/building/add/${formik.values.campusId}`, values).then(
+      await axios.post(`${url}/building/add/${formik.values.campusId}`, values).then(
         res => alert(JSON.stringify(res.data))
       ).then(
         () => {

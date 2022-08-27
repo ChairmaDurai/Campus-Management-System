@@ -14,12 +14,13 @@ import { selectUser } from "./features/Reducer";
 import Tasks from "./pages/Tasks/Tasks";
 
 
+
 function App() {
   const auth = localStorage.getItem("userData")
   const user = useSelector(selectUser)
   useEffect(() => {
 
-  }, [auth , user])
+  }, [auth, user])
 
 
   return (

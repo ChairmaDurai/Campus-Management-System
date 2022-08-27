@@ -12,6 +12,7 @@ import axios from 'axios'
 
 
 export default function UpdateBuildings({ open, handleClose, data, onChange, id }) {
+    const url = process.env.REACT_APP_PUBLI_URL
     const formik = useFormik({
         initialValues: {
             buildingName: "",
@@ -23,7 +24,7 @@ export default function UpdateBuildings({ open, handleClose, data, onChange, id 
 
         }),
         onSubmit: (values) => {
-            axios.put(`http://localhost:5300/api/building/update/${id}`, values).then(
+            axios.put(`${url}/building/update/${id}`, values).then(
                 res => {
                     alert(JSON.stringify(res.data))
                     handleClose()

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 const Signup = () => {
+    const url = process.env.REACT_APP_PUBLI_URL
     const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
@@ -24,10 +25,10 @@ const Signup = () => {
             confrim_password: Yup.string().oneOf([Yup.ref("password"), null], "Password Not Match").trim("No spaces allowed")
         }),
         onSubmit: (values) => {
-            axios.post("http://localhost:5300/api/users/register", values).then(res => {
+            axios.post(`${url}`, values).then(res => {
                 alert(JSON.stringify(res.data))
                 navigate("/login")
-                
+
             }).catch(err => { alert(err); })
         }
     })
@@ -44,28 +45,28 @@ const Signup = () => {
                             User Name
                         </InputLabel>
                         <TextField variant='outlined' placeholder="UserName" type="text" id="username" name='username' onChange={formik.handleChange} />
-                        {formik.errors.username && <span style={{"color" : "red"}}>{formik.errors.username}</span>}
+                        {formik.errors.username && <span style={{ "color": "red" }}>{formik.errors.username}</span>}
                     </FormGroup>
                     <FormGroup className='form-group'>
                         <InputLabel className='label' htmlFor="email"  >
                             Email
                         </InputLabel>
                         <TextField variant='outlined' placeholder="Email" id="email" type="email" name='email' onChange={formik.handleChange} />
-                        {formik.errors.email && <span style={{"color" : "red"}}>{formik.errors.email}</span>}
+                        {formik.errors.email && <span style={{ "color": "red" }}>{formik.errors.email}</span>}
                     </FormGroup>
                     <FormGroup className='form-group' >
                         <InputLabel className='label' htmlFor="password" >
                             Password
                         </InputLabel>
                         <TextField variant='outlined' placeholder="Password" type="password" id='password' name='password' onChange={formik.handleChange} />
-                        {formik.errors.password && <span style={{"color" : "red"}}>{formik.errors.password}</span>}
+                        {formik.errors.password && <span style={{ "color": "red" }}>{formik.errors.password}</span>}
                     </FormGroup>
                     <FormGroup className='form-group' >
                         <InputLabel className='label' htmlFor="confrim_password" >
                             Confrim Password
                         </InputLabel>
                         <TextField variant='outlined' placeholder="Confrim Password" type="password" id="confrim_password" name='confrim_password' onChange={formik.handleChange} />
-                        {formik.errors.confrim_password && <span style={{"color" : "red"}}>{formik.errors.confrim_password}</span>}
+                        {formik.errors.confrim_password && <span style={{ "color": "red" }}>{formik.errors.confrim_password}</span>}
 
                     </FormGroup>
                     <FormGroup className='form-group'>
