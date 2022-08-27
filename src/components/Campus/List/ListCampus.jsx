@@ -17,7 +17,6 @@ const ListCampus = () => {
   const currentCampus = useSelector((state) => state.campus.currentCampus)
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
-  const [res , setRes] = useState([])
   const navigate = useNavigate()
   const [load, setLoad] = useState(false)
   const url = process.env.REACT_APP_URL;
@@ -28,7 +27,6 @@ const ListCampus = () => {
       try {
         const campusRes = await axios.get(`${url}/campus`)
         dispatch(fetchSuccess(campusRes.data))
-        setRes(campusRes.data)
       } catch (err) {
         dispatch(fetchFailure())
 
@@ -36,7 +34,7 @@ const ListCampus = () => {
       }
     }
     fetchCampus()
-  }, [dispatch, load])
+  }, [load])
 
   const handleClose = () => {
     setOpen(false);

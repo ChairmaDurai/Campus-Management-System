@@ -23,6 +23,7 @@ import { logout } from '../../features/Reducer';
 
 const Navbar = () => {
     const currentUser = useSelector((state)=>state.user.currentUser)
+    console.log();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -70,7 +71,7 @@ const Navbar = () => {
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
                                 >
-                                    <Avatar sx={{ width: 32, height: 32 }}><AccountCircleRounded /></Avatar>
+                                    <Avatar sx={{ width: 32, height: 32 }}>{currentUser.username[0].toUpperCase()}</Avatar>
                                 </IconButton>
                             </Tooltip>
                         </Box>
