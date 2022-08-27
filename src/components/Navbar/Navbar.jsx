@@ -71,7 +71,7 @@ const Navbar = () => {
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
                                 >
-                                    <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+                                    <Avatar sx={{ width: 32, height: 32 }}><AccountCircleRounded/></Avatar>
                                 </IconButton>
                             </Tooltip>
                         </Box>
@@ -138,10 +138,13 @@ const Navbar = () => {
                             </MenuItem>
                         </Menu>
                     </React.Fragment> :
-                    <div style={{ "display": "flex", "justifyContent": "flex-end" }}>
+                    <div style={{ "display": "flex", "justifyContent": "flex-end" , "gap":"15px" }}>
                         <Button variant="outlined" className="button" onClick={() => {
                             navigate("/login")
                         }} >Login</Button>
+                        <Button variant="outlined" className="button" onClick={() => {
+                            navigate("/signup")
+                        }} >Sign Up</Button>
 
                     </div>
             }

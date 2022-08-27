@@ -11,6 +11,7 @@ import AuthProvider from "./features/AuthProvider";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/Reducer";
+import Tasks from "./pages/Tasks/Tasks";
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
         {
           auth ? <Routes>
             <Route path='/' >
-              <Route index element={<Signup />} />
+              <Route index element={<Tasks />} />
               <Route path="signup" element={<Signup />} />
               <Route path="login" element={!user ? <Login /> : <ListCampus />} />
               <Route path="campus">
