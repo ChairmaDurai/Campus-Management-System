@@ -19,22 +19,25 @@ export default function UpdateCampus({ open, handleClose, data, id }) {
             status: true,
         },
         validationSchema: Yup.object().shape({
-            name: Yup.string().trim(),
-            place: Yup.string().trim(),
+            name: Yup.string().required("Required").trim().isValid(),
+            place: Yup.string().required("Required").trim().isValid(),
             status: Yup.boolean().required("Required"),
         }),
 
-        onSubmit: values => {
-            axios.put(`${url}/campus/update/${id}`, values).then(res => {
-                alert(JSON.stringify(res.data))
+        onSubmit: async (values) => {
+            const { name, place, status } = values
+            if (name !== "" && place !== "" && Boolean(status)) {
+                await axios.put(`${url}/campus/update/${id}`, values).then(res => {
+                    alert(JSON.stringify(res.data))
+                }).then(handleClose).catch(err => {
+                    alert(err)
+                })
 
-
-            }).then(handleClose).catch(err => {
-                alert(err)
-            })
+            }
         }
-    })
+    }
 
+    )
     return (
         <div >
             <Dialog

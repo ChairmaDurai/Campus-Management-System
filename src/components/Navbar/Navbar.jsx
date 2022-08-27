@@ -25,7 +25,7 @@ const Navbar = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const [loading, setLoading] = useState(false)
-    const [user, setData] = useState(JSON.parse(localStorage.getItem("userData")))
+    const [user, setData] = useState(JSON.parse(localStorage.getItem("userData")) || null)
     // const Avatar = user?.username?.toUpperCase()?.charAt(0)
     const data = useSelector(selectUser)
     const handleClick = (event) => {
@@ -37,12 +37,13 @@ const Navbar = () => {
         setAnchorEl(null);
     };
     useEffect(() => {
+        
     }, [loading, user, data])
 
     const handleLogout = async () => {
         dispatch(logout())
         localStorage.clear()
-        selectUser(null)
+        setData(null)
         setLoading(!loading)
         navigate("/login")
         window.location.reload(true)
@@ -57,7 +58,7 @@ const Navbar = () => {
                 <div>Campus Management System</div>
             </div>
             {
-                data || user ?
+              user || data ?
                     <React.Fragment >
                         <Box sx={{ display: 'flex', "flex": "1", "width": "100%", alignItems: 'center', textAlign: 'center' }}>
                             <Typography sx={{ minWidth: 100 }}>Contact</Typography>

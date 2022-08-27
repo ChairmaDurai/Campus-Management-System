@@ -19,18 +19,23 @@ export default function UpdateBuildings({ open, handleClose, data, onChange, id 
             status: true,
         },
         validationSchema: Yup.object().shape({
-            buildingName: Yup.string().required("Required"),
+            buildingName: Yup.string(),
             status: Yup.boolean().required("Required")
 
         }),
-        onSubmit: (values) => {
-            axios.put(`${url}/building/update/${id}`, values).then(
-                res => {
-                    alert(JSON.stringify(res.data))
-                    handleClose()
-                }
+        onSubmit: async (values) => {
+            const { buildingName, status } = values
+            if (buildingName !== "", Boolean(status)) {
+                axios.put(`${url}/building/update/${id}`, values).then(
+                    res => {
+                        alert(JSON.stringify(res.data))
+                        handleClose()
+                    }
 
-            ).catch(err => alert(err))
+                ).catch(err => alert(err))
+            }else{
+                alert("Something Wrong")
+            }
         }
     })
 
@@ -65,6 +70,7 @@ export default function UpdateBuildings({ open, handleClose, data, onChange, id 
                                 onChange={formik.handleChange}
                                 name="status"
                                 style={{ "background": "#0a1929", "color": "lightgray" }}
+                                value={true}
 
                             >
                                 <MenuItem style={{ "background": "white", "color": "#0a1929" }} value="">None</MenuItem>

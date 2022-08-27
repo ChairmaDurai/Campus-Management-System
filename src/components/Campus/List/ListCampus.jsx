@@ -79,7 +79,7 @@ const ListCampus = () => {
                   </Button>
                   <Button variant='outlined' style={{ "marginLeft": "5px" }} onClick={() => {
                     const check = window.confirm("Yes to Delete and No to cancel")
-                    console.log(check);
+                    
                     if (check === true) {
                       axios.delete(`${url}/campus/delete/${row._id}`).then(res => {
                         alert(res.data)

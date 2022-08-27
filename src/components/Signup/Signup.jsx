@@ -25,14 +25,13 @@ const Signup = () => {
             confrim_password: Yup.string().oneOf([Yup.ref("password"), null], "Password Not Match").trim("No spaces allowed")
         }),
         onSubmit: (values) => {
-            axios.post(`${url}/api/users/register`, values).then(res => {
+            axios.post(`${url}/users/register`, values).then(res => {
                 alert(JSON.stringify(res.data))
                 navigate("/login")
                 
             }).catch(err => { alert(err); })
         }
     })
-
 
 
     return (
