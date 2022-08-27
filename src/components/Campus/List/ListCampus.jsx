@@ -15,18 +15,18 @@ import { useNavigate } from 'react-router-dom';
 
 
 const ListCampus = () => {
+  const url = process.env.REACT_APP_URL;
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = React.useState(false);
   const [id, setId] = React.useState("");
   const user = useSelector(selectUser)
   const navigate = useNavigate()
-  const url = process.env.REACT_APP_PUBLI_URL
 
 
 
   useEffect(() => {
-    axios.get("http://localhost:5300/api/campus/").then(res => {
+    axios.get(`${url}/campus/`).then(res => {
       setData(res.data)
     }).catch(err => alert(err))
   }, [loading, user])

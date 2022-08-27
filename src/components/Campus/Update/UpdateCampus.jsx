@@ -11,7 +11,7 @@ import * as Yup from "yup"
 
 
 export default function UpdateCampus({ open, handleClose, data, id }) {
-    const url = process.env.REACT_APP_PUBLI_URL
+    const url = process.env.REACT_APP_URL
     const formik = useFormik({
         initialValues: {
             name: "",

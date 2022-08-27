@@ -12,7 +12,7 @@ import axios from 'axios'
 
 
 export default function UpdateBuildings({ open, handleClose, data, onChange, id }) {
-    const url = process.env.REACT_APP_PUBLI_URL
+    const url = process.env.REACT_APP_URL
     const formik = useFormik({
         initialValues: {
             buildingName: "",

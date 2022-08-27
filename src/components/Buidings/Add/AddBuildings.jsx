@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const AddBuildings = () => {
-  const url = process.env.REACT_APP_PUBLI_URL
+  const url = process.env.REACT_APP_URL
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {

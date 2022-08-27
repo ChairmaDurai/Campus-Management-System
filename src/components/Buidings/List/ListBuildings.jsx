@@ -13,13 +13,13 @@ import { useNavigate } from "react-router-dom"
 
 
 const ListBuildings = () => {
+  const url = process.env.REACT_APP_URL
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
   const [id, setId] = useState("");
   const navigate = useNavigate()
 
-  const url = process.env.REACT_APP_PUBLI_URL
 
   useEffect(() => {
     axios.get(`${url}/building/`).then(res => {

@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { login } from '../../features/Reducer'
 
 const Login = () => {
-  const url = process.env.REACT_APP_PUBLI_URL
+  const url = process.env.REACT_APP_URL
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)

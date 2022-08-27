@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 const Signup = () => {
-    const url = process.env.REACT_APP_PUBLI_URL
+    const url = process.env.REACT_APP_URL
     const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
@@ -25,10 +25,10 @@ const Signup = () => {
             confrim_password: Yup.string().oneOf([Yup.ref("password"), null], "Password Not Match").trim("No spaces allowed")
         }),
         onSubmit: (values) => {
-            axios.post(`${url}`, values).then(res => {
+            axios.post(`${url}/api/users/register`, values).then(res => {
                 alert(JSON.stringify(res.data))
                 navigate("/login")
-
+                
             }).catch(err => { alert(err); })
         }
     })
