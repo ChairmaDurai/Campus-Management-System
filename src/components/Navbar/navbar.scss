@@ -1,0 +1,50 @@
+.navbar{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    color:var(--font_white);
+    padding: 0px 25px;
+    height: 56px;
+
+
+.nav_center{
+    
+
+}
+
+
+.nav_right{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+
+    .icon{
+        color:var(--font_white);
+        cursor: pointer;
+    }
+
+}
+
+
+
+
+}
+
+
+
+
+.menu{
+
+    .icon{
+        color: black !important;
+    }
+
+    &:hover{
+        background: lightgray !important;
+    }
+    
+
+}
+

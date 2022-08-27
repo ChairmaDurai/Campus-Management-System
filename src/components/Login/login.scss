@@ -1,0 +1,45 @@
+.login {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .center {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    h3 {
+      color: var(--font_white);
+      margin: 0px 100px 20px 50px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 50%;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        width: 90%;
+
+        .label {
+          color: var(--font_white);
+        }
+
+        .button {
+          button {
+            width: 100px;
+          }
+        }
+      }
+    }
+  }
+}

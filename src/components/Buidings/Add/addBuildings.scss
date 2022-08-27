@@ -1,0 +1,50 @@
+.addBuildings {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .center {
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h3 {
+      color: var(--font_white);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 50%;
+
+      .form-button {
+        flex-direction: row !important;
+      }
+      .form-group,
+      .form-button {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        width: 90%;
+
+        .select {
+          width: 100px;
+        }
+        .label {
+          color: var(--font_white);
+        }
+
+        .button {
+          button {
+            width: 100px;
+          }
+        }
+      }
+    }
+  }
+}
