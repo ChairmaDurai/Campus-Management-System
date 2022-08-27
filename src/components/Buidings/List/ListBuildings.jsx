@@ -7,31 +7,36 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Button } from '@mui/material';
+import {useSelector, useDispatch} from "react-redux"
 import UpdateBuildings from '../Update/UpdateBuildings';
 import { useNavigate } from "react-router-dom"
+import { fetchFailure, fetchSuccess } from '../../../features/buildingSlice';
 
 
 const ListBuildings = () => {
+  const currentBuilding = useSelector(state=>state.building.currentBuilding)
   const url = process.env.REACT_APP_URL
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false);
-  const [id, setId] = useState("");
+  const [data, setData] = useState({});
+  const [load, setLoad] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-
-  useEffect(() => {
-    axios.get(`${url}/building/`).then(res => {
-      setData(res.data)
-    }).catch(err => alert(err))
-  }, [loading])
-
-
-
+  useEffect(()=>{
+    const fetchBuildings = async ()=>{
+      try{
+        const buildingRes = await axios.get(`${url}/building`)
+        dispatch(fetchSuccess(buildingRes.data))
+      }catch(err){
+        dispatch(fetchFailure())
+      }
+    }
+    fetchBuildings()
+  },[load])
 
   const handleClose = () => {
     setOpen(false);
-    setLoading(!loading)
+    setLoad(!load)
   };
 
 
@@ -53,21 +58,21 @@ const ListBuildings = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data && data.map((row) => (
+            {currentBuilding && currentBuilding.map((item) => (
               <TableRow
-                key={row._id}
+                key={item._id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row" style={{ "color": "lightgray" }}>
-                  {row._id}
+                  {item._id}
                 </TableCell>
-                <TableCell style={{ "color": "lightgray" }} align="left">{row.buildingName}</TableCell>
-                <TableCell style={{ "color": "lightgray" }} align="left">{row._campusId}</TableCell>
-                <TableCell style={{ "color": "lightgray" }} align="left">{row.status == false ? "Inactive" : "active"}</TableCell>
+                <TableCell style={{ "color": "lightgray" }} align="left">{item.buildingName}</TableCell>
+                <TableCell style={{ "color": "lightgray" }} align="left">{item._campusId}</TableCell>
+                <TableCell style={{ "color": "lightgray" }} align="left">{item.status === false ? "Inactive" : "active"}</TableCell>
                 <TableCell style={{ "color": "lightgray" }} align="center" >
                   <Button variant='outlined' style={{ "marginRight": "5px" }} onClick={
                     () => {
-                      setId(row._id)
+                      setData(item)
                       setOpen(true)
                     }
                   } >
@@ -77,9 +82,9 @@ const ListBuildings = () => {
                     const check = window.confirm("Yes to Delete and No to cancel")
                     console.log(check);
                     if (check === true) {
-                      axios.delete(`http://localhost:5300/api/building/delete/${row._id}`).then(res => {
+                      axios.delete(`${url}/building/delete/${item._id}`).then(res => {
                         alert(res.data)
-                        setLoading(!loading)
+                        setLoad(!load)
                       }).catch(err => alert(err))
                     } else {
                       alert("Not deleted")
@@ -100,7 +105,7 @@ const ListBuildings = () => {
         <Button variant="outlined" className="button" style={{ "width": "150px" }} onClick={() => { navigate("/campus") }} >List Campus</Button>
         <Button variant="outlined" className="button" style={{ "width": "150px" }} onClick={() => { navigate("/buildings/") }} >List Buildings</Button>
       </div>
-      <UpdateBuildings open={open} handleClose={handleClose} data={data} id={id} />
+      <UpdateBuildings open={open} handleClose={handleClose} data={data} />
     </div>
   )
 }

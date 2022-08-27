@@ -7,61 +7,55 @@ import AddBuildings from "./components/Buidings/Add/AddBuildings";
 import ListBuildings from "./components/Buidings/List/ListBuildings";
 import Signup from "./components/Signup/Signup.jsx";
 import Login from "./components/Login/Login.jsx";
-import AuthProvider from "./features/AuthProvider";
 import { useEffect } from "react";
+// import Tasks from "./pages/Tasks/Tasks";
 import { useSelector } from "react-redux";
-import { selectUser } from "./features/Reducer";
-import Tasks from "./pages/Tasks/Tasks";
+
 
 
 
 function App() {
-  const auth = localStorage.getItem("userData")
-  const user = useSelector(selectUser)
+  const currentUser = useSelector(state => state.user.currentUser)
   useEffect(() => {
-
-  }, [auth, user])
-
+  }, [currentUser])
 
   return (
     <div className="app">
       <div className="top">
         <Navbar />
       </div>
-      <div className="others">
-
-        {
-          auth ? <Routes>
-            <Route path='/' >
-              <Route index element={<Tasks />} />
-              <Route path="signup" element={<Signup />} />
-              <Route path="login" element={!auth ? <Login /> : <ListCampus />} />
-              <Route path="campus">
-                <Route index element={<AuthProvider><ListCampus /></AuthProvider>} />
-                <Route path="list" element={<AuthProvider><ListCampus /></AuthProvider>} />
-                <Route path="add" element={<AuthProvider><AddCampus /></AuthProvider>} />
-              </Route>
-              <Route path="buildings">
-                <Route index element={<AuthProvider><ListBuildings /></AuthProvider>} />
-                <Route path="list" element={<AuthProvider><ListBuildings /></AuthProvider>} />
-                <Route path="add" element={<AuthProvider><AddBuildings /></AuthProvider>} />
-              </Route>
-            </Route>
-          </Routes> :
+      {
+        currentUser ?
+          <div className="others">
             <Routes>
-              <Route path="/" >
-                <Route index element={<Login />} />
-                <Route path="signup" element={<Signup />} />
-                <Route path="login" element={<Login />} />
-                <Route path="*" element={<Login />} />
+              <Route path='/' >
+                <Route index element={!currentUser ? <Signup />  : <ListCampus /> } />
+                <Route path="signup" element={ !currentUser ? <Signup />  : <ListCampus />  } />
+                <Route path="login" element={ !currentUser ? <Login /> : <ListCampus />  } />
+                <Route path="campus">
+                  <Route index element={<ListCampus />} />
+                  <Route path="list" element={<ListCampus />} />
+                  <Route path="add" element={<AddCampus />} />
+                </Route>
+                <Route path="buildings">
+                  <Route index element={<ListBuildings />} />
+                  <Route path="list" element={<ListBuildings />} />
+                  <Route path="add" element={<AddBuildings />} />
+                </Route>
               </Route>
             </Routes>
-        }
+          </div>
 
-
-
-      </div>
-
+          :
+          <Routes>
+            <Route path="/" >
+              <Route index element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+              <Route path="login" element={<Login />} />
+              <Route path="*" element={<Login />} />
+            </Route>
+          </Routes>
+      }
     </div>
   );
 }

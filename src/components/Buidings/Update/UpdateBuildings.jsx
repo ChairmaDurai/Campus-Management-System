@@ -11,31 +11,27 @@ import axios from 'axios'
 
 
 
-export default function UpdateBuildings({ open, handleClose, data, onChange, id }) {
+export default function UpdateBuildings({ open, handleClose,data }) {
     const url = process.env.REACT_APP_URL
     const formik = useFormik({
         initialValues: {
-            buildingName: "",
-            status: true,
+            buildingName: data.buildingName,
+            status: data.status,
         },
         validationSchema: Yup.object().shape({
             buildingName: Yup.string(),
             status: Yup.boolean().required("Required")
-
         }),
         onSubmit: async (values) => {
-            const { buildingName, status } = values
-            if (buildingName !== "", Boolean(status)) {
-                axios.put(`${url}/building/update/${id}`, values).then(
+
+               await axios.put(`${url}/building/update/${data._id}`, values).then(
                     res => {
                         alert(JSON.stringify(res.data))
                         handleClose()
                     }
 
                 ).catch(err => alert(err))
-            }else{
-                alert("Something Wrong")
-            }
+            
         }
     })
 
@@ -67,16 +63,12 @@ export default function UpdateBuildings({ open, handleClose, data, onChange, id 
                             <Select id="building_status"
                                 displayEmpty
                                 inputProps={{ 'aria-label': 'Without label' }}
-                                onChange={formik.handleChange}
+                                onBlur={formik.handleChange}
                                 name="status"
                                 style={{ "background": "#0a1929", "color": "lightgray" }}
-                                value={true}
-
                             >
-                                <MenuItem style={{ "background": "white", "color": "#0a1929" }} value="">None</MenuItem>
-                                <MenuItem style={{ "background": "white", "color": "#0a1929" }} value={true}>Open</MenuItem>
-                                <MenuItem style={{ "background": "white", "color": "#0a1929" }} value={false}>Closed</MenuItem>
-
+                                <MenuItem style={{ "background": "white", "color": "#0a1929" }}  value={true}>Open</MenuItem>
+                                <MenuItem style={{ "background": "white", "color": "#0a1929" }}  value={false}>Closed</MenuItem>
                             </Select>
                             {formik.errors.status && <span style={{ "color": "red" }}>{formik.errors.status}</span>}
                         </FormGroup>

@@ -10,30 +10,28 @@ import axios from 'axios';
 import * as Yup from "yup"
 
 
-export default function UpdateCampus({ open, handleClose, data, id }) {
+export default function UpdateCampus({ open, handleClose, data }) {
     const url = process.env.REACT_APP_URL
     const formik = useFormik({
         initialValues: {
-            name: "",
-            place: "",
-            status: true,
+            name: data.name,
+            place: data.name,
+            status: data.status,
         },
         validationSchema: Yup.object().shape({
-            name: Yup.string().required("Required").trim().isValid(),
-            place: Yup.string().required("Required").trim().isValid(),
-            status: Yup.boolean().required("Required"),
+            name: Yup.string(),
+            place: Yup.string(),
+            status: Yup.boolean(),
         }),
 
         onSubmit: async (values) => {
-            const { name, place, status } = values
-            if (name !== "" && place !== "" && Boolean(status)) {
-                await axios.put(`${url}/campus/update/${id}`, values).then(res => {
-                    alert(JSON.stringify(res.data))
-                }).then(handleClose).catch(err => {
-                    alert(err)
-                })
+            await axios.put(`${url}/campus/update/${data._id}`, values).then(res => {
+                alert(JSON.stringify(res.data))
+            }).then(handleClose).catch(err => {
+                alert(err)
+            })
 
-            }
+
         }
     }
 
@@ -73,10 +71,9 @@ export default function UpdateCampus({ open, handleClose, data, id }) {
                                 displayEmpty
                                 inputProps={{ 'aria-label': 'Without label' }}
                                 name="status"
-                                onChange={formik.handleChange}
+                                onBlur={formik.handleChange}
                                 style={{ "background": "#0a1929", "color": "lightgray" }}
                             >
-                                <MenuItem style={{ "background": "white", "color": "#0a1929" }} value="">None</MenuItem>
                                 <MenuItem style={{ "background": "white", "color": "#0a1929" }} value={true}>Open</MenuItem>
                                 <MenuItem style={{ "background": "white", "color": "#0a1929" }} value={false}>Closed</MenuItem>
                             </Select>

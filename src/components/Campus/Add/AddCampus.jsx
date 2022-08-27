@@ -9,7 +9,6 @@ import axios from 'axios'
 
 const AddCampus = () => {
   const url = process.env.REACT_APP_URL
-
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
@@ -23,7 +22,9 @@ const AddCampus = () => {
     }),
     onSubmit: (values) => {
       axios.post(`${url}/campus/add`, values).then(
-        res => alert("Sucessfully Added")
+        (res) => {
+          alert(JSON.stringify(res.data))
+      }
       ).then(
         () => {
           const check = window.confirm("Click Yes to List Campus")
@@ -31,7 +32,7 @@ const AddCampus = () => {
             navigate("/campus")
           }
         }
-      ).catch(err => alert(err))
+      ).catch(err => alert(JSON.stringify(err.response.data)))
     }
   })
   return (

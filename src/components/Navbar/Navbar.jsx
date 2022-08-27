@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./navbar.scss"
-import {AccountCircleRounded} from "@mui/icons-material/"
+import { AccountCircleRounded } from "@mui/icons-material/"
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -17,36 +17,34 @@ import Logout from '@mui/icons-material/Logout';
 import "./navbar.scss"
 import { Button } from '@mui/material';
 import { useNavigate } from "react-router-dom"
-import { logout, selectUser } from '../../features/Reducer';
+import { logout } from '../../features/Reducer';
 
 
 
 const Navbar = () => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const currentUser = useSelector((state)=>state.user.currentUser)
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const [loading, setLoading] = useState(false)
-    const [user, setData] = useState(JSON.parse(localStorage.getItem("userData")) || null)
-    // const Avatar = user?.username?.toUpperCase()?.charAt(0)
-    const data = useSelector(selectUser)
+    useEffect(() => {
+
+    }, [currentUser])
+
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+
+
+
     const handleClose = () => {
         setAnchorEl(null);
     };
-    useEffect(() => {
-        
-    }, [loading, user, data])
 
     const handleLogout = async () => {
         dispatch(logout())
-        localStorage.clear()
-        setData(null)
-        setLoading(!loading)
         navigate("/login")
-        window.location.reload(true)
     }
 
     return (
@@ -58,7 +56,7 @@ const Navbar = () => {
                 <div>Campus Management System</div>
             </div>
             {
-              user || data ?
+                currentUser ?
                     <React.Fragment >
                         <Box sx={{ display: 'flex', "flex": "1", "width": "100%", alignItems: 'center', textAlign: 'center' }}>
                             <Typography sx={{ minWidth: 100 }}>Contact</Typography>
@@ -72,7 +70,7 @@ const Navbar = () => {
                                     aria-haspopup="true"
                                     aria-expanded={open ? 'true' : undefined}
                                 >
-                                    <Avatar sx={{ width: 32, height: 32 }}><AccountCircleRounded/></Avatar>
+                                    <Avatar sx={{ width: 32, height: 32 }}><AccountCircleRounded /></Avatar>
                                 </IconButton>
                             </Tooltip>
                         </Box>
@@ -138,8 +136,9 @@ const Navbar = () => {
                                 Logout
                             </MenuItem>
                         </Menu>
-                    </React.Fragment> :
-                    <div style={{ "display": "flex", "justifyContent": "flex-end" , "gap":"15px" }}>
+                    </React.Fragment>
+                    :
+                    <div style={{ "display": "flex", "justifyContent": "flex-end", "gap": "15px" }}>
                         <Button variant="outlined" className="button" onClick={() => {
                             navigate("/login")
                         }} >Login</Button>
@@ -149,8 +148,6 @@ const Navbar = () => {
 
                     </div>
             }
-
-
 
         </div>
     )

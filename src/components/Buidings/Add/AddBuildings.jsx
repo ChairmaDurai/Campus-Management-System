@@ -6,6 +6,7 @@ import * as Yup from "yup"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
+
 const AddBuildings = () => {
   const url = process.env.REACT_APP_URL
   const navigate = useNavigate()
@@ -21,15 +22,20 @@ const AddBuildings = () => {
     }),
     onSubmit: async (values) => {
       await axios.post(`${url}/building/add/${formik.values.campusId}`, values).then(
-        res => alert(JSON.stringify(res.data))
+        (res) => { 
+          alert(JSON.stringify(res.data))
+        }
+
       ).then(
+
         () => {
           const check = window.confirm("Click Yes to List Buildings")
           if (check) {
+
             navigate("/buildings")
           }
         }
-      ).catch(err => alert(err))
+      ).catch(err => alert(JSON.stringify(err.response.data)))
     }
   })
 
