@@ -45,7 +45,7 @@ const Navbar = () => {
         selectUser(null)
         setLoading(!loading)
         navigate("/login")
-        window.location.reload(false)
+        window.location.reload(true)
     }
 
     return (
